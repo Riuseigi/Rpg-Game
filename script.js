@@ -31,6 +31,10 @@ const weapons = [
   { name: 'claw hammer', power: 50 },
   { name: 'sword', power: 100 }
 ];
+
+/* The `const monsters` is an array of objects that represents different types of monsters in the game.
+Each object in the array represents a specific monster and has three properties: `name`, `level`,
+and `health`. */
 const monsters = [
   {
     name: "slime",
@@ -48,6 +52,10 @@ const monsters = [
     health: 300
   }
 ]
+
+
+/* The `const locations` is an array of objects that represents different locations in the game. Each
+object in the array represents a specific location and has several properties: */
 const locations = [
     {
         name: "town square",
@@ -104,6 +112,13 @@ button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
 
+/**
+ * The function "update" updates the display and functionality of buttons and text based on the
+ * provided location object.
+ * @param location - The "location" parameter is an object that contains the following properties:
+ */
+
+
 function update(location) {
   monsterStats.style.display = "none";
   button1.innerText = location["button text"][0];
@@ -115,6 +130,12 @@ function update(location) {
   text.innerText = location.text;
 }
 
+
+
+
+/**
+ * The above code defines three functions that update the location.
+ */
 function goTown() {
   update(locations[0]);
 }
@@ -127,6 +148,12 @@ function goCave() {
   update(locations[2]);
 }
 
+
+
+/**
+ * The function "buyHealth" deducts 10 gold from the player's balance and adds 10 to their health if
+ * they have enough gold, otherwise it displays a message.
+ */
 function buyHealth() {
   if (gold >= 10) {
     gold -= 10;
@@ -138,6 +165,10 @@ function buyHealth() {
   }
 }
 
+/**
+ * The function "buyWeapon" allows the player to buy a new weapon if they have enough gold and haven't
+ * already reached the maximum weapon level.
+ */
 function buyWeapon() {
   if (currentWeapon < weapons.length - 1) {
     if (gold >= 30) {
@@ -158,6 +189,11 @@ function buyWeapon() {
   }
 }
 
+/**
+ * The function "sellWeapon" checks if the inventory has more than one item, adds 15 gold to the
+ * player's total, removes the first item from the inventory, and updates the text to display the sold
+ * weapon and the remaining inventory.
+ */
 function sellWeapon() {
   if (inventory.length > 1) {
     gold += 15;
@@ -170,6 +206,11 @@ function sellWeapon() {
   }
 }
 
+
+/**
+ * The above code defines three functions that set a variable called "fighting" to different values and
+ * then call another function called "goFight".
+ */
 function fightSlime() {
   fighting = 0;
   goFight();
@@ -185,6 +226,10 @@ function fightDragon() {
   goFight();
 }
 
+/**
+ * The above code defines two functions, "goFight()" and "attack()", which are used in a game to update
+ * the game state and perform attacks on monsters.
+ */
 function goFight() {
   update(locations[3]);
   monsterHealth = monsters[fighting].health;
@@ -215,20 +260,37 @@ function attack() {
   }
 }
 
+/**
+ * The function calculates the attack value of a monster based on its level and a random factor.
+ * @param level - The level parameter represents the level of the monster.
+ * @returns the value of the variable "hit".
+ */
 function getMonsterAttackValue(level) {
   const hit = (level * 5) - (Math.floor(Math.random() * xp));
   console.log(hit);
   return hit > 0 ? hit : 0;
 }
 
+/**
+ * The function checks if a monster is hit and if not, the player dodges the attack.
+ * @returns The function `isMonsterHit()` returns a boolean value.
+ */
 function isMonsterHit() {
   return Math.random() > .2 || health < 20;
 }
 
+/**
+ * The dodge function displays a message indicating that the player has successfully dodged an attack
+ * from a monster.
+ */
 function dodge() {
   text.innerText = "You dodge the attack from the " + monsters[fighting].name;
 }
 
+/**
+ * The function "defeatMonster" updates the player's gold and experience points, and updates the text
+ * display for gold and experience points.
+ */
 function defeatMonster() {
   gold += Math.floor(monsters[fighting].level * 6.7);
   xp += monsters[fighting].level;
@@ -237,6 +299,9 @@ function defeatMonster() {
   update(locations[4]);
 }
 
+/**
+ * The code defines two functions, "lose" and "winGame", which update the location in a game.
+ */
 function lose() {
   update(locations[5]);
 }
@@ -245,6 +310,10 @@ function winGame() {
   update(locations[6]);
 }
 
+/**
+ * The restart function resets the player's XP, health, gold, current weapon, and inventory to their
+ * default values and updates the corresponding text elements on the screen.
+ */
 function restart() {
   xp = 0;
   health = 100;
@@ -257,6 +326,9 @@ function restart() {
   goTown();
 }
 
+/**
+ * The code defines three functions: easterEgg, pickTwo, and pickEight.
+ */
 function easterEgg() {
   update(locations[7]);
 }
@@ -269,6 +341,11 @@ function pickEight() {
   pick(8);
 }
 
+/**
+ * The function "pick" generates an array of random numbers, displays them, and checks if the user's
+ * guess is in the array.
+ * @param guess - The parameter "guess" represents the number that the user has guessed.
+ */
 function pick(guess) {
   let numbers = [];
   while (numbers.length < 10) {
